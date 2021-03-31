@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class SharedViewModel : ViewModel() {
 
     private val _county = MutableLiveData("Brazil")
-    private val county: LiveData<String> = _county
+    val county: LiveData<String> = _county
 
     fun saveCountr(newCountry: String) {
         _county.value = newCountry
