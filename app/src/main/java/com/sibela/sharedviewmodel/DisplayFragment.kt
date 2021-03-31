@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.sibela.sharedviewmodel.databinding.FragmentDisplayBinding
 
 class DisplayFragment : Fragment() {
+
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private var _binding: FragmentDisplayBinding? = null
     private val binding get() = _binding!!
@@ -17,6 +21,15 @@ class DisplayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDisplayBinding.inflate(inflater, container, false)
+
+        sharedViewModel.county.observe(viewLifecycleOwner) { country ->
+            binding.countryLabel.text = country
+        }
+
+        binding.button.setOnClickListener {
+            findNavController().navigate(R.id.action_displayFragment_to_inputFragment)
+        }
+
         return binding.root
     }
 
